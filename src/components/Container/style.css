@@ -1,0 +1,33 @@
+.container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #eee;
+}
+
+/* Media Query */
+/* large */
+
+@media (min-width:1200px) {
+    .container {
+        width: 80% !important;
+    }
+}
+
+/* Medium */
+
+@media (min-width:992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+/* Small */
+
+@media (min-width:768px) {
+    .container {
+        width: 750px;
+    }
+}
