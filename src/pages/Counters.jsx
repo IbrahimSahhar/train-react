@@ -4,24 +4,24 @@ import Counter from "../components/Counter";
 export default class Counters extends Component {
   state = {
     total: 0,
-    isTrue: true,
   };
-
+  getTotal = (countValue) => {
+    if (this.state.total >= 0)
+      this.setState((prev) => ({ total: prev.total + countValue }));
+  };
   render() {
     return (
       <div style={{ padding: "100px" }}>
+        <Counter calcTotal={this.getTotal} />
+
+        <Counter calcTotal={this.getTotal} />
+
+        <Counter calcTotal={this.getTotal} />
+
+        <Counter calcTotal={this.getTotal} />
         <div className="total" style={{ marginTop: "30px", fontSize: "25px" }}>
           Total : <span style={{ color: "red" }}>{this.state.total}</span>
         </div>
-        {this.state.isTrue ? <Counter /> : ""}
-        <button
-          style={{ marginTop: "20px" }}
-          onClick={() => {
-            this.setState({ isTrue: false });
-          }}
-        >
-          Click me
-        </button>
       </div>
     );
   }

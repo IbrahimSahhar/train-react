@@ -26,8 +26,13 @@
 }
 
 .counter .decrement {
-    cursor: auto;
+    cursor: pointer;
     background-color: #222222be;
+}
+
+.counter .decrement-off {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .counter .count {

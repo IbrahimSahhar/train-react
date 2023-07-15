@@ -7,27 +7,24 @@ export default class Counter extends Component {
     amount: 1,
   };
 
-  increment = () => {
-    this.setState((prev) => ({ count: prev.count + +this.state.amount }));
+  increment = (e) => {
+    this.setState((prev) => ({
+      count: prev.count + Number(this.state.amount),
+    }));
+    this.props.calcTotal(Number(this.state.amount));
   };
   decrement = () => {
-    if (this.state.count >= +this.state.amount)
-      this.setState((prev) => ({ count: prev.count - +this.state.amount }));
+    if (this.state.count >= +this.state.amount) {
+      this.setState((prev) => ({
+        count: prev.count - Number(this.state.amount),
+      }));
+      this.props.calcTotal(-Number(this.state.amount));
+    }
   };
 
   inputChange = (e) => {
     this.setState({ amount: e.target.value });
   };
-
-  componentDidMount() {
-    console.log("mounting");
-  }
-  componentDidUpdate() {
-    console.log("updating");
-  }
-  componentWillUnmount() {
-    console.log("un Mounting");
-  }
 
   render() {
     return (
@@ -36,7 +33,12 @@ export default class Counter extends Component {
           increment
         </button>
         <h3 className="count">{this.state.count}</h3>
-        <button className="decrement" onClick={this.decrement}>
+        <button
+          className={
+            this.state.count > 0 ? "decrement" : "decrement decrement-off "
+          }
+          onClick={this.decrement}
+        >
           decrement
         </button>
         <input type="number" onChange={(e) => this.inputChange(e)} />
