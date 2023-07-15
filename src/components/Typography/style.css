@@ -1,0 +1,38 @@
+.typography-h1 {
+    color: red;
+}
+
+.typography-h2 {
+    color: rgb(30, 134, 9);
+
+}
+
+.typography-h3 {
+    color: rgb(8, 34, 184);
+
+}
+
+.typography-h4 {
+    color: rgb(192, 212, 11);
+
+}
+
+.typography-h5 {
+    color: rgb(255, 0, 234);
+
+}
+
+.typography-h6 {
+    color: rgb(9, 214, 170);
+
+}
+
+.typography-p {
+    color: rgb(199, 123, 8);
+
+}
+
+.typography-span {
+    color: rgb(117, 21, 93);
+
+}
