@@ -1,0 +1,36 @@
+.counter {
+    width: 600px;
+    background-color: #eee;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.counter button {
+    padding: 10px 20px;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px;
+    background-color: #22222252;
+
+
+}
+
+.counter input {
+    padding: 10px 10px;
+    border: none;
+    background-color: #03a4e4;
+    font-size: 25px;
+    width: 200px;
+}
+
+.counter .decrement {
+    cursor: auto;
+    background-color: #222222be;
+}
+
+.counter .count {
+    font-size: 25px;
+    color: red;
+}
