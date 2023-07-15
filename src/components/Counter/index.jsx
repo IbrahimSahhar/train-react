@@ -4,7 +4,7 @@ import "./style.css";
 export default class Counter extends Component {
   state = {
     count: 0,
-    amount: 0,
+    amount: 1,
   };
 
   increment = () => {
@@ -19,6 +19,16 @@ export default class Counter extends Component {
     this.setState({ amount: e.target.value });
   };
 
+  componentDidMount() {
+    console.log("mounting");
+  }
+  componentDidUpdate() {
+    console.log("updating");
+  }
+  componentWillUnmount() {
+    console.log("un Mounting");
+  }
+
   render() {
     return (
       <div className="counter">
@@ -29,7 +39,7 @@ export default class Counter extends Component {
         <button className="decrement" onClick={this.decrement}>
           decrement
         </button>
-        <input onChange={(e) => this.inputChange(e)} />
+        <input type="number" onChange={(e) => this.inputChange(e)} />
       </div>
     );
   }
