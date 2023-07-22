@@ -2,6 +2,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import Tasks from "./pages/Tasks";
+import TodoList from "./pages/TodoList";
 import Counters from "./pages/Counters";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       {/* <About /> */}
       {/* <Tasks /> */}
       {/* <Footer /> */}
+      {/* <TodoList /> */}
       <Counters />
     </div>
   );

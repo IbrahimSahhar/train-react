@@ -13,6 +13,8 @@
     text-align: center;
     margin: 10px;
     background-color: #22222252;
+    cursor: pointer;
+
 
 
 }
@@ -26,7 +28,6 @@
 }
 
 .counter .decrement {
-    cursor: pointer;
     background-color: #222222be;
 }
 
@@ -35,7 +36,7 @@
     cursor: not-allowed;
 }
 
-.counter .count {
+.counter .total {
     font-size: 25px;
     color: red;
 }
