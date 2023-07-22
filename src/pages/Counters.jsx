@@ -42,7 +42,7 @@ export default class Counters extends Component {
         (accumulator, currentValue) => accumulator + currentValue.count,
         0
       );
-      if (this.state.total !== newTotal) {
+      if (prev.total !== newTotal) {
         return { total: newTotal };
       }
     });
