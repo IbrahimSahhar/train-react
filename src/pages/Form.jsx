@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import * as yup from "yup";
+
+let schema = yup.object().shape({
+  username: yup.string().required("ارجع اكتب الاسم ي حبيبي "),
+  email: yup.string().email(),
+  password: yup.string().required().min(8).max(20),
+});
 
 const initstate = {
   username: "",
@@ -13,9 +20,22 @@ export default class Form extends Component {
       initstate,
     },
   };
-  handelSubmit = (e) => {
+  handelSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ randomData: { ...this.state }, ...initstate });
+
+    try {
+      await schema
+        .validate({
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+        })
+        .then(() => {
+          this.setState({ randomData: { ...this.state }, ...initstate });
+        });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   handelInput = (e) => {
