@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import * as yup from "yup";
 
+const usernameMessage = "the username is required";
+
 let schema = yup.object().shape({
-  username: yup.string().required("ارجع اكتب الاسم ي حبيبي "),
+  username: yup.string().required(usernameMessage),
   email: yup.string().email(),
   password: yup.string().required().min(8).max(20),
 });

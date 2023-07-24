@@ -11,24 +11,6 @@ export default class Home extends Component {
     return (
       <div>
         <Header myPage="home" />
-        <section>
-          <h2>section 1</h2>
-          <Button
-            title="click me from section 1"
-            func={() => {
-              console.log("click me ");
-            }}
-          />
-        </section>
-        <section>
-          <h2>section2</h2>
-          <Button
-            title="follow me from section 2"
-            func={() => {
-              console.log("follow me");
-            }}
-          />
-        </section>
 
         <Card
           title="Card 1"
