@@ -9,8 +9,7 @@ import Tasks from "../pages/Tasks";
 import Posts from "../pages/Posts";
 import Form from "../pages/Form";
 
-import { PostOne } from "../components/PostOne";
-
+import PostOne from "../components/PostOne";
 export const Routers = () => {
   const router = useRoutes([
     {

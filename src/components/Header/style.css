@@ -1,14 +1,15 @@
 .header {
     display: flex;
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     background-color: aqua;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 
 }
 
 .header .logo {
     width: 100;
-    font-size: 25px;
+    font-size: 1.5625rem;
+
 }
 
 ul {
@@ -20,22 +21,22 @@ ul {
 
 ul li {
 
-    margin-right: 20px;
+    margin-right: 1.25rem;
 
 }
 
 
 ul li a {
 
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 800;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -43,6 +44,6 @@ ul li a {
     -o-border-radius: 50%;
 }
 
-ul li.active {
-    border-bottom: 4px solid red;
+.active {
+    border-bottom: 0.25rem solid red;
 }

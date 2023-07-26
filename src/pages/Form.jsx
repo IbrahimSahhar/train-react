@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import * as yup from "yup";
 import Container from "../components/Container";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const usernameMessage = "the username is required";
 
 let schema = yup.object().shape({
   username: yup.string().required(usernameMessage),
-  email: yup.string().email(),
+  email: yup.string().email().required(),
   password: yup.string().required().min(8).max(20),
 });
 
@@ -22,22 +24,59 @@ export default class Form extends Component {
     randomData: {
       initstate,
     },
+    isLoginningOn: false,
+    isLoading: false,
+    errors: [],
   };
   handelSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await schema
-        .validate({
-          username: this.state.username,
-          email: this.state.email,
-          password: this.state.password,
-        })
+        .validate(
+          {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+          },
+          { abortEarly: false }
+        )
         .then(() => {
-          this.setState({ randomData: { ...this.state }, ...initstate });
+          this.setState({
+            randomData: { ...this.state },
+            ...initstate,
+            isLoading: true,
+          });
+          axios
+            .post("https://jsonplaceholder.typicode.com/users", {
+              name: "ibrahim",
+              username: this.state.username,
+              email: this.state.email,
+            })
+            .then((response) => {
+              // handle success
+              console.log(response);
+              this.setState({
+                isLoginningOn: true,
+              });
+            })
+            .catch((error) => {
+              // handle error
+              this.setState({
+                errors: [error.message],
+              });
+            })
+            .finally(() => {
+              // always executed
+              this.setState({
+                isLoading: false,
+              });
+            });
         });
     } catch (err) {
-      console.log(err.message);
+      this.setState({
+        errors: err.errors,
+      });
     }
   };
 
@@ -55,6 +94,12 @@ export default class Form extends Component {
   render() {
     return (
       <Container>
+        <section style={{ marginBottom: "1.25rem" }}>
+          Errors :
+          <span style={{ color: "red" }}>
+            {this.state.errors.join(" ,,, ")}
+          </span>
+        </section>
         <form onSubmit={(e) => this.handelSubmit(e)}>
           <label htmlFor="username">User Name</label>
           <input
@@ -86,8 +131,11 @@ export default class Form extends Component {
           />
           <br />
           <br />
-          <button type="submit">Submit</button>
+          <button type="submit">
+            {this.state.isLoading ? "Loading..." : "Submit"}
+          </button>
           <button onClick={(e) => this.handelRandomData(e)}>Random Data</button>
+          {this.state.isLoginningOn ? <Navigate to="/about" /> : ""}
         </form>
       </Container>
     );

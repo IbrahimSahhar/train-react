@@ -1,17 +1,17 @@
 .counter {
-    width: 500px;
+    width: 31.25rem;
     background-color: #eee;
-    padding: 25px;
+    padding: 1.5625rem;
     display: flex;
     align-items: center;
 }
 
 .counter button {
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     border: none;
-    font-size: 20px;
+    font-size: 1.25rem;
     text-align: center;
-    margin: 10px;
+    margin: 0.625rem;
     background-color: #22222252;
     cursor: pointer;
 
@@ -20,11 +20,11 @@
 }
 
 .counter input {
-    padding: 10px 10px;
+    padding: 0.625rem 0.625rem;
     border: none;
     background-color: #03a4e4;
-    font-size: 25px;
-    width: 200px;
+    font-size: 1.5625rem;
+    width: 12.5rem;
 }
 
 .counter .decrement {
@@ -37,6 +37,6 @@
 }
 
 .counter .total {
-    font-size: 25px;
+    font-size: 1.5625rem;
     color: red;
 }
