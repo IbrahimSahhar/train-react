@@ -1,26 +1,15 @@
-import About from "./pages/About";
-import Home from "./pages/Home";
 import Footer from "./components/Footer";
-import Tasks from "./pages/Tasks";
-import TodoList from "./pages/TodoList";
-import Counters from "./pages/Counters";
-import Form from "./pages/Form";
-import Products from "./pages/Products";
+import Header from "./components/Header";
+
+import { Routers } from "./Global/Routers";
 
 function App() {
-  const func = (child) => {
-    console.log(child);
-  };
+  console.log(Routers);
   return (
     <div className="App">
-      <Home />
-      {/* <About /> */}
-      {/* <Tasks /> */}
-      {/* <Footer /> */}
-      {/* <TodoList /> */}
-      {/* <Counters /> */}
-      {/* <Form /> */}
-      {/* <Products func={func} /> */}
+      <Header />
+      {Routers()}
+      <Footer />
     </div>
   );
 }

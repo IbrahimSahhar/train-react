@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListItem from "../components/ListItem";
+import Container from "../components/Container";
 
 const data = [
   { id: 1, name: "ibrahim", number: "059232313123" },
@@ -15,9 +16,11 @@ export default class index extends Component {
   render() {
     return (
       <div>
-        {data.map((todo) => {
-          return <ListItem key={todo.id} todo={todo} />;
-        })}
+        <Container>
+          {data.map((todo) => {
+            return <ListItem key={todo.id} todo={todo} />;
+          })}
+        </Container>
       </div>
     );
   }

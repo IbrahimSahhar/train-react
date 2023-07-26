@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { H1 } from "../components/Typography";
+import Container from "../components/Container";
 
 export default class Tasks extends Component {
   state = {
@@ -28,20 +29,21 @@ export default class Tasks extends Component {
     color: "black",
   };
   render() {
-    console.log("Typography");
     return (
       <div>
-        <div className="task-1">
-          <H1> Task 1</H1>
-          <button
-            style={
-              this.state.theme === "dark" ? this.darkStyle : this.lightStyle
-            }
-            onClick={this.changeTheme}
-          >
-            {this.state.theme === "dark" ? "light" : "dark"}
-          </button>
-        </div>
+        <Container>
+          <div className="task-1">
+            <H1> Task 1</H1>
+            <button
+              style={
+                this.state.theme === "dark" ? this.darkStyle : this.lightStyle
+              }
+              onClick={this.changeTheme}
+            >
+              {this.state.theme === "dark" ? "light" : "dark"}
+            </button>
+          </div>
+        </Container>
       </div>
     );
   }

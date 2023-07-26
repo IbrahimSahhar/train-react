@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../components/Header";
 import Container from "../components/Container";
 import { H1, H2, H3, H4, H5, H6, P, Span } from "../components/Typography";
 
@@ -10,7 +9,6 @@ export default class About extends Component {
   render() {
     return (
       <div>
-        <Header myPage="about" />
         <Container>
           <button
             onClick={() => {

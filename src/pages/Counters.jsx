@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Counter from "../components/Counter";
+import Container from "../components/Container";
 const counters = [
   { id: 1, count: 0, step: 1 },
   { id: 2, count: 0, step: 2 },
@@ -50,16 +51,18 @@ export default class Counters extends Component {
 
   render() {
     return (
-      <div style={{ padding: "100px" }}>
-        {this.state.counters.map((counter) => (
-          <Counter
-            key={counter.id}
-            {...counter}
-            increment={this.onIncrement}
-            decrement={this.onDecrement}
-          />
-        ))}
-        <div className="total">{this.state.total}</div>
+      <div>
+        <Container>
+          {this.state.counters.map((counter) => (
+            <Counter
+              key={counter.id}
+              {...counter}
+              increment={this.onIncrement}
+              decrement={this.onDecrement}
+            />
+          ))}
+          <div className="total">{this.state.total}</div>
+        </Container>
       </div>
     );
   }

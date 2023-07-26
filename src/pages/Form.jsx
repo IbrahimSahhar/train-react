@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as yup from "yup";
+import Container from "../components/Container";
 
 const usernameMessage = "the username is required";
 
@@ -53,43 +54,42 @@ export default class Form extends Component {
   };
   render() {
     return (
-      <form
-        onSubmit={(e) => this.handelSubmit(e)}
-        style={{ padding: "50px 100px" }}
-      >
-        <label htmlFor="username">User Name</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="user name"
-          onChange={(e) => this.handelInput(e)}
-          value={this.state.username}
-        />
-        <br />
-        <br />
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="email"
-          onChange={(e) => this.handelInput(e)}
-          value={this.state.email}
-        />
-        <br />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="password"
-          onChange={(e) => this.handelInput(e)}
-          value={this.state.password}
-        />
-        <br />
-        <br />
-        <button type="submit">Submit</button>
-        <button onClick={(e) => this.handelRandomData(e)}>Random Data</button>
-      </form>
+      <Container>
+        <form onSubmit={(e) => this.handelSubmit(e)}>
+          <label htmlFor="username">User Name</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="user name"
+            onChange={(e) => this.handelInput(e)}
+            value={this.state.username}
+          />
+          <br />
+          <br />
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="email"
+            onChange={(e) => this.handelInput(e)}
+            value={this.state.email}
+          />
+          <br />
+          <br />
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="password"
+            onChange={(e) => this.handelInput(e)}
+            value={this.state.password}
+          />
+          <br />
+          <br />
+          <button type="submit">Submit</button>
+          <button onClick={(e) => this.handelRandomData(e)}>Random Data</button>
+        </form>
+      </Container>
     );
   }
 }
