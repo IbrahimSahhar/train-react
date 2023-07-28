@@ -20,7 +20,6 @@ export default class Header extends Component {
         <p
           style={{
             marginLeft: "1.25rem",
-            lineHeight: "5rem",
             fontSize: "1.25rem",
           }}
         >

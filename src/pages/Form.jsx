@@ -38,7 +38,6 @@ export default class Form extends Component {
             })
             .then((response) => {
               if (response.status === 200) {
-                console.log(response);
                 this.props.setIsAuthorized(true);
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem(
