@@ -1,5 +1,5 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import TodoList from "../pages/TodoList";
@@ -10,44 +10,70 @@ import Posts from "../pages/Posts";
 import Form from "../pages/Form";
 
 import PostOne from "../components/PostOne";
-export const Routers = () => {
+import ProtectedRoute from "../components/ProtectedRoute";
+
+export const Routers = (isAuthorized, setIsAuthorized, logOut) => {
   const router = useRoutes([
     {
-      path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/about",
-      element: <About />,
-    },
-    {
-      path: "/todoList",
-      element: <TodoList />,
-    },
-    {
-      path: "/counters",
-      element: <Counters />,
+      index: true,
+      element: <Navigate to={"/form"} />,
     },
     {
       path: "/form",
-      element: <Form />,
+      // element: <Form />,
+      element: (
+        <>
+          {isAuthorized ? (
+            <Navigate to="/dashboard" />
+          ) : (
+            <Form
+              setIsAuthorized={setIsAuthorized}
+              isAuthorized={isAuthorized}
+            />
+          )}
+        </>
+      ),
     },
     {
-      path: "/products",
-      element: <Products />,
+      path: "/dashboard",
+      element: <ProtectedRoute isAuthorized={isAuthorized} logOut={logOut} />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "about",
+          element: <About />,
+        },
+        {
+          path: "todoList",
+          element: <TodoList />,
+        },
+        {
+          path: "counters",
+          element: <Counters />,
+        },
+        {
+          path: "products",
+          element: <Products />,
+        },
+        {
+          path: "tasks",
+          element: <Tasks />,
+        },
+
+        {
+          path: "posts",
+          element: <Posts />,
+        },
+        {
+          path: "posts/:id",
+          element: <PostOne />,
+        },
+      ],
     },
-    {
-      path: "/tasks",
-      element: <Tasks />,
-    },
-    {
-      path: "/posts",
-      element: <Posts />,
-    },
-    {
-      path: "/posts/:id",
-      element: <PostOne />,
-    },
+
     {
       path: "*",
       element: <h1>Page Is Not Found 404</h1>,

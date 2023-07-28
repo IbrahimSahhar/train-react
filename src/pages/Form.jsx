@@ -4,61 +4,50 @@ import Container from "../components/Container";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-const usernameMessage = "the username is required";
-
 let schema = yup.object().shape({
-  username: yup.string().required(usernameMessage),
-  email: yup.string().email().required(),
-  password: yup.string().required().min(8).max(20),
+  username: yup.string().required(),
+  password: yup.string().required(),
 });
-
-const initstate = {
-  username: "",
-  email: "",
-  password: "",
-};
 
 export default class Form extends Component {
   state = {
-    initstate,
-    randomData: {
-      initstate,
-    },
-    isLoginningOn: false,
+    username: "",
+    password: "",
     isLoading: false,
     errors: [],
   };
   handelSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await schema
         .validate(
           {
             username: this.state.username,
-            email: this.state.email,
             password: this.state.password,
           },
           { abortEarly: false }
         )
-        .then(() => {
+        .then(({ username, password }) => {
           this.setState({
-            randomData: { ...this.state },
-            ...initstate,
             isLoading: true,
           });
           axios
-            .post("https://jsonplaceholder.typicode.com/users", {
-              name: "ibrahim",
-              username: this.state.username,
-              email: this.state.email,
+            .post("https://dummyjson.com/auth/login", {
+              username,
+              password,
             })
             .then((response) => {
+              if (response.status === 200) {
+                console.log(response);
+                this.props.setIsAuthorized(true);
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem(
+                  "fullName",
+                  `${response.data.username} ${response.data.lastName}`
+                );
+              }
+
               // handle success
-              console.log(response);
-              this.setState({
-                isLoginningOn: true,
-              });
             })
             .catch((error) => {
               // handle error
@@ -70,6 +59,8 @@ export default class Form extends Component {
               // always executed
               this.setState({
                 isLoading: false,
+                username: "",
+                password: "",
               });
             });
         });
@@ -87,10 +78,6 @@ export default class Form extends Component {
     });
   };
 
-  handelRandomData = (e) => {
-    e.preventDefault();
-    this.setState({ ...this.state.randomData });
-  };
   render() {
     return (
       <Container>
@@ -101,23 +88,13 @@ export default class Form extends Component {
           </span>
         </section>
         <form onSubmit={(e) => this.handelSubmit(e)}>
-          <label htmlFor="username">User Name</label>
+          <label htmlFor="username">User name</label>
           <input
             id="username"
             type="text"
-            placeholder="user name"
-            onChange={(e) => this.handelInput(e)}
+            placeholder="username"
             value={this.state.username}
-          />
-          <br />
-          <br />
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="email"
             onChange={(e) => this.handelInput(e)}
-            value={this.state.email}
           />
           <br />
           <br />
@@ -126,16 +103,15 @@ export default class Form extends Component {
             id="password"
             type="password"
             placeholder="password"
-            onChange={(e) => this.handelInput(e)}
             value={this.state.password}
+            onChange={(e) => this.handelInput(e)}
           />
           <br />
           <br />
           <button type="submit">
             {this.state.isLoading ? "Loading..." : "Submit"}
           </button>
-          <button onClick={(e) => this.handelRandomData(e)}>Random Data</button>
-          {this.state.isLoginningOn ? <Navigate to="/about" /> : ""}
+          {this.state.isAuthorized ? <Navigate to="/dashboard" /> : ""}
         </form>
       </Container>
     );

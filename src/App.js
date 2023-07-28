@@ -1,15 +1,23 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-
+import { useState } from "react";
 import { Routers } from "./Global/Routers";
+import { useEffect } from "react";
 
 function App() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const logOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("fillName");
+    setIsAuthorized(false);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsAuthorized(true);
+    }
+  }, [isAuthorized]);
+
   return (
-    <div className="App">
-      <Header />
-      {Routers()}
-      <Footer />
-    </div>
+    <div className="App">{Routers(isAuthorized, setIsAuthorized, logOut)}</div>
   );
 }
 

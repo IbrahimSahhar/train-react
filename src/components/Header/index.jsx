@@ -6,44 +6,62 @@ import imageProfile from "../../images/profile.jpg";
 import "./style.css";
 
 export default class Header extends Component {
-  render({ myPage } = this.props) {
+  state = {
+    fullName: "",
+  };
+  componentDidMount() {
+    const fullName = localStorage.getItem("fullName");
+    this.setState({ fullName: fullName });
+  }
+  render() {
     return (
       <div className="header">
         <img className="logo" src={imageProfile} alt="profile" />
+        <p
+          style={{
+            marginLeft: "1.25rem",
+            lineHeight: "5rem",
+            fontSize: "1.25rem",
+          }}
+        >
+          Hello :
+          <span style={{ color: "red", fontWeight: "bold" }}>
+            {this.state.fullName}
+          </span>
+        </p>
         <ul>
           <li>
-            <NavLink
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "brown" }
-              }
-              to="/"
-            >
-              Home
-            </NavLink>
+            <NavLink to="/dashboard">Home</NavLink>
           </li>
           <li>
-            <NavLink to="about">about</NavLink>
+            <NavLink to="/dashboard/about">about</NavLink>
           </li>
 
           <li>
-            <NavLink to="todoList">TodoList</NavLink>
+            <NavLink to="/dashboard/todoList">TodoList</NavLink>
           </li>
           <li>
-            <NavLink to="counters">
+            <NavLink to="/dashboard/counters">
               {({ isActive }) => (isActive ? "Counters Active" : "Counters")}
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="form">Form</NavLink>
+            <NavLink to="/dashboard/products">Products</NavLink>
           </li>
           <li>
-            <NavLink to="products">Products</NavLink>
+            <NavLink to="/dashboard/tasks">Tasks</NavLink>
           </li>
           <li>
-            <NavLink to="tasks">Tasks</NavLink>
+            <NavLink to="/dashboard/posts">Posts</NavLink>
           </li>
           <li>
-            <NavLink to="posts">Posts</NavLink>
+            <button
+              style={{ padding: "0.3125rem 0.9375rem", cursor: "pointer" }}
+              onClick={() => this.props.logOut()}
+            >
+              Log out
+            </button>
           </li>
         </ul>
       </div>
