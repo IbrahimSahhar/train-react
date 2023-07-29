@@ -1,105 +1,79 @@
-import React, { Component, createRef } from "react";
-
 import Container from "../components/Container";
-// import axios from "axios";
 
-// import { API_URL } from "../config/api.js";
+import React, { useState } from "react";
 
-export default class Home extends Component {
-  state = {
-    // name: "",
-    // email: "",
-    // id: "",
-    // isAdmin: false,
-    refs: [],
-  };
+const Home = () => {
+  const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState({});
 
-  arr = [...Array(10)];
-  componentDidMount() {
-    this.setState({
-      refs: this.arr.map((item) => React.createRef()),
+  const handelInput = (e) => {
+    const { id, value } = e.target;
+    setTodo({
+      ...todo,
+      [id]: value,
     });
-  }
-  handelChange = (id) => {
-    this.state.refs[id].current?.focus();
   };
 
-  // componentDidMount() {
-  //   // const token = localStorage.getItem("token");
-  //   axios
-  //     .get(`${API_URL}/profile`, {
-  //       headers: {
-  //         // Authorization: `Bearer ${token}`,
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYmMzYTlkMWQ1MjI3MDgxNzBlZjY4YiIsImlhdCI6MTY5MDUzMjkwMCwiZXhwIjoxNjkzMTI0OTAwfQ.dz8RPwxPEfLK7I_khuqWBzwoiV73XTU7pESpIXhMZsI",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       this.setState({
-  //         name: response.data.name,
-  //         email: response.data.email,
-  //         id: response.data._id,
-  //         isAdmin: response.data.isAdmin,
-  //       });
-  //     });
-  // }
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos, todo]);
+    setTodo({
+      id: "",
+      username: "",
+      body: "",
+    });
+  };
+  return (
+    <div>
+      <Container>
+        <form onSubmit={(e) => handelSubmit(e)}>
+          <label htmlFor="id">id</label>
+          <input
+            type="number"
+            id="id"
+            required
+            onChange={(e) => handelInput(e)}
+            value={todo.id}
+          />
+          <br />
+          <br />
+          <label htmlFor="username">username</label>
+          <input
+            type="text"
+            id="username"
+            required
+            onChange={(e) => handelInput(e)}
+            value={todo.username}
+          />
+          <br />
+          <br />
+          <label htmlFor="body">body</label>
+          <input
+            type="text"
+            id="body"
+            required
+            onChange={(e) => handelInput(e)}
+            value={todo.body}
+          />
+          <br />
+          <br />
+          <button type="submit">Submit</button>
+        </form>
 
-  render() {
-    return (
-      <div>
-        <Container>
-          {/* <>
-            information :
-            <br />
-            <ul style={{ display: "block", lineHeight: "1.525rem" }}>
-              <li>name : {this.state.name}</li>
-              <li> email : {this.state.email}</li>
-              <li>id : {this.state.id}</li>
-              <li>
-                {this.state.isAdmin ? "you are admin" : "you are not admin"}
-              </li>
-            </ul>
-          </> */}
-          <div style={{ display: "flex", marginTop: "3.125rem" }}>
-            {
-              this.arr.map((item, index) => {
-                return (
-                  <input
-                    type="number"
-                    style={{ width: "2.55rem" }}
-                    ref={this.state.refs[index - 1]}
-                    onChange={() => this.handelChange(index)}
-                  />
-                );
-              })
-              /* <input
-              type="number"
-              style={{ width: "2.55rem" }}
-              ref={this.inputRef1}
-              onChange={() => this.handelChange(2)}
-            />
-            <input
-              type="number"
-              style={{ width: "2.55rem" }}
-              ref={this.inputRef2}
-              onChange={(e) => this.handelChange(3)}
-            />
-            <input
-              type="number"
-              style={{ width: "2.55rem" }}
-              ref={this.inputRef3}
-              onChange={(e) => this.handelChange(4)}
-            />
-            <input
-              type="number"
-              style={{ width: "2.55rem" }}
-              ref={this.inputRef4}
-              onChange={(e) => this.handelChange(5)}
-            /> */
-            }
-          </div>
-        </Container>
-      </div>
-    );
-  }
-}
+        {todos?.map((todo) => {
+          return (
+            <div>
+              <ul>
+                <li> id = : {todo.id}</li>
+                <li> username = : {todo.username}</li>
+                <li> body = : {todo.body}</li>
+              </ul>
+            </div>
+          );
+        })}
+      </Container>
+    </div>
+  );
+};
+
+export default Home;
