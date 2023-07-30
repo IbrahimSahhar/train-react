@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 
 export default class listItem extends Component {
-  render({ id, name, number } = this.props.todo) {
+  render({ userId, id, title, completed } = this.props.todo) {
     return (
       <div>
-        <li>
-          id : {id} || name :{name} || number : {number}{" "}
-        </li>
+        <li>user id : {userId}</li>
+        <li>id : {id}</li>
+        <li>title : {title}</li>
+        <li>completed : {completed ? "completed" : "not completed"}</li>
+        <br />
+        <br />
       </div>
     );
   }

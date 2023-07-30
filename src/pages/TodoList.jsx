@@ -1,27 +1,40 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import ListItem from "../components/ListItem";
 import Container from "../components/Container";
+import axios from "axios";
 
-const data = [
-  { id: 1, name: "ibrahim", number: "059232313123" },
-  { id: 2, name: "sameh", number: "059232313123" },
-  { id: 3, name: "dana", number: "059232313123" },
-  { id: 4, name: "Lyle", number: "059234213123" },
-];
+const TodoList = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-export default class index extends Component {
-  state = {
-    data: data,
-  };
-  render() {
-    return (
-      <div>
-        <Container>
-          {data.map((todo) => {
-            return <ListItem key={todo.id} todo={todo} />;
-          })}
-        </Container>
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        console.log("finally");
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div>
+      <Container>
+        {loading
+          ? "loading"
+          : data.map((todo) => {
+              return <ListItem key={todo.id} todo={todo} />;
+            })}
+      </Container>
+    </div>
+  );
+};
+
+export default TodoList;

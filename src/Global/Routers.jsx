@@ -11,6 +11,7 @@ import Form from "../pages/Form";
 
 import PostOne from "../components/PostOne";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { Gifs } from "../pages/Gifs";
 
 export const Routers = (isAuthorized, setIsAuthorized, logOut) => {
   const router = useRoutes([
@@ -61,6 +62,10 @@ export const Routers = (isAuthorized, setIsAuthorized, logOut) => {
         {
           path: "tasks",
           element: <Tasks />,
+        },
+        {
+          path: "Gifs",
+          element: <Gifs />,
         },
 
         {

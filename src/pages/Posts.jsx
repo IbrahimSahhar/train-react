@@ -1,19 +1,17 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Post from "../components/Post";
 
 import Container from "../components/Container";
 import axios from "axios";
 
-export default class Posts extends Component {
-  state = {
-    data: [],
-  };
-  componentDidMount() {
+const Posts = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
     axios
       .get("https://dummyjson.com/posts")
       .then((response) => {
         // handle success
-        this.setState({ data: response.data.posts });
+        setData(response.data.posts);
       })
       .catch((error) => {
         // handle error
@@ -22,16 +20,17 @@ export default class Posts extends Component {
       .finally(() => {
         // always executed
       });
-  }
-  render() {
-    return (
-      <div>
-        <Container>
-          {this.state.data?.map((post) => {
-            return <Post key={post.id} {...post} />;
-          })}
-        </Container>
-      </div>
-    );
-  }
-}
+  }, []);
+
+  return (
+    <div>
+      <Container>
+        {data?.map((post) => {
+          return <Post key={post.id} {...post} />;
+        })}
+      </Container>
+    </div>
+  );
+};
+
+export default Posts;

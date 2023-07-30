@@ -52,6 +52,9 @@ export default class Header extends Component {
             <NavLink to="/dashboard/tasks">Tasks</NavLink>
           </li>
           <li>
+            <NavLink to="/dashboard/Gifs">Gifs</NavLink>
+          </li>
+          <li>
             <NavLink to="/dashboard/posts">Posts</NavLink>
           </li>
           <li>

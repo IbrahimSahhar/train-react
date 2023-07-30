@@ -11,7 +11,9 @@ const Post = ({ id, title }) => {
           <li>id : {id}</li>
           <li>title:{title} </li>
           {/* <Link to={`/posts/${id}`}>Show More </Link> */}
-          <button onClick={() => navigate(`/posts/${id}`)}>Show More</button>
+          <button onClick={() => navigate(`/dashboard/posts/${id}`)}>
+            Show More
+          </button>
           <br />
           <br />
         </ol>
