@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { ContainerStyled } from "../Global/Components";
 
 export const Gifs = () => {
   const [data, setData] = useState([]);
@@ -24,7 +25,7 @@ export const Gifs = () => {
   };
 
   return (
-    <div>
+    <ContainerStyled>
       <label htmlFor="search">Search</label>
       <input
         type="text"
@@ -43,11 +44,11 @@ export const Gifs = () => {
         {data.map((gif) => {
           return (
             <div key={gif.id}>
-              <img src={gif.images.original.url} alt="gif" width={"100px"} />
+              <img src={gif.images.original.url} alt="gif" width={"71.25rem"} />
             </div>
           );
         })}
       </div>
-    </div>
+    </ContainerStyled>
   );
 };

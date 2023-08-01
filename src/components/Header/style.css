@@ -12,21 +12,21 @@
 
 }
 
-ul {
+.header ul {
     flex: 1;
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-ul li {
+.header ul li {
 
     margin-right: 1.25rem;
 
 }
 
 
-ul li a {
+.header ul li a {
 
     font-size: 1.25rem;
     font-weight: 800;

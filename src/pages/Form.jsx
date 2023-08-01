@@ -1,36 +1,37 @@
-import React, { Component } from "react";
+import React, { useContext, useState } from "react";
 import * as yup from "yup";
-import Container from "../components/Container";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { ContainerStyled } from "../Global/Components";
+import { AuthContext } from "../context/AuthContext";
 
 let schema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
 });
 
-export default class Form extends Component {
-  state = {
-    username: "",
-    password: "",
-    isLoading: false,
-    errors: [],
-  };
-  handelSubmit = async (e) => {
+const Form = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const context = useContext(AuthContext);
+
+  const handelSubmit = async (e) => {
     e.preventDefault();
     try {
       await schema
         .validate(
           {
-            username: this.state.username,
-            password: this.state.password,
+            username: username,
+            password: password,
           },
           { abortEarly: false }
         )
-        .then(({ username, password }) => {
-          this.setState({
-            isLoading: true,
-          });
+        .then(() => {
+          setIsLoading(true);
+
           axios
             .post("https://dummyjson.com/auth/login", {
               username,
@@ -38,7 +39,7 @@ export default class Form extends Component {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.props.setIsAuthorized(true);
+                context.setIsAuthorized(true);
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem(
                   "fullName",
@@ -50,69 +51,59 @@ export default class Form extends Component {
             })
             .catch((error) => {
               // handle error
-              this.setState({
-                errors: [error.message],
-              });
+              setErrors([error.message]);
             })
             .finally(() => {
               // always executed
-              this.setState({
-                isLoading: false,
-                username: "",
-                password: "",
-              });
+              setIsLoading(false);
+              setUsername("");
+              setPassword("");
             });
         });
     } catch (err) {
-      this.setState({
-        errors: err.errors,
-      });
+      setErrors(err.errors);
+    }
+  };
+  const handelInput = (e) => {
+    const { value, id } = e.target;
+    if (id === "username") {
+      setUsername(value);
+    } else if (id === "password") {
+      setPassword(value);
     }
   };
 
-  handelInput = (e) => {
-    const { value, id } = e.target;
-    this.setState({
-      [id]: value,
-    });
-  };
+  return (
+    <ContainerStyled>
+      <section style={{ marginBottom: "1.25rem" }}>
+        Errors :<span style={{ color: "red" }}>{errors.join(" ,,, ")}</span>
+      </section>
+      <form onSubmit={(e) => handelSubmit(e)}>
+        <label htmlFor="username">User name</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="username"
+          value={username}
+          onChange={(e) => handelInput(e)}
+        />
+        <br />
+        <br />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => handelInput(e)}
+        />
+        <br />
+        <br />
+        <button type="submit">{isLoading ? "Loading..." : "Submit"}</button>
+        {context.isAuthorized ? <Navigate to="/dashboard" /> : ""}
+      </form>
+    </ContainerStyled>
+  );
+};
 
-  render() {
-    return (
-      <Container>
-        <section style={{ marginBottom: "1.25rem" }}>
-          Errors :
-          <span style={{ color: "red" }}>
-            {this.state.errors.join(" ,,, ")}
-          </span>
-        </section>
-        <form onSubmit={(e) => this.handelSubmit(e)}>
-          <label htmlFor="username">User name</label>
-          <input
-            id="username"
-            type="text"
-            placeholder="username"
-            value={this.state.username}
-            onChange={(e) => this.handelInput(e)}
-          />
-          <br />
-          <br />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={(e) => this.handelInput(e)}
-          />
-          <br />
-          <br />
-          <button type="submit">
-            {this.state.isLoading ? "Loading..." : "Submit"}
-          </button>
-          {this.state.isAuthorized ? <Navigate to="/dashboard" /> : ""}
-        </form>
-      </Container>
-    );
-  }
-}
+export default Form;

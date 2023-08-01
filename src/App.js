@@ -1,14 +1,32 @@
 import { useState } from "react";
-import { Routers } from "./Global/Routers";
+import { Routers } from "./Routers";
 import { useEffect } from "react";
+import { ThemeProvider } from "styled-components";
+import {
+  BlueTheme,
+  DarkTheme,
+  GreenTheme,
+  LightTheme,
+  OrangeTheme,
+  RedTheme,
+  YellowTheme,
+  fontsize,
+} from "./Global/Theme";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("fillName");
-    setIsAuthorized(false);
+  const Themes = {
+    dark: DarkTheme,
+    light: LightTheme,
+    Blue: BlueTheme,
+    Red: RedTheme,
+    Yellow: YellowTheme,
+    Orangered: OrangeTheme,
+    Green: GreenTheme,
+    fontSize: fontsize,
   };
+
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -17,7 +35,13 @@ function App() {
   }, [isAuthorized]);
 
   return (
-    <div className="App">{Routers(isAuthorized, setIsAuthorized, logOut)}</div>
+    <ThemeProvider theme={Themes}>
+      <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
+        <div className="App">
+          <Routers />
+        </div>
+      </AuthContext.Provider>
+    </ThemeProvider>
   );
 }
 

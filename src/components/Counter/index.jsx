@@ -1,21 +1,40 @@
-import React, { Component } from "react";
-import "./style.css";
+import React, { useState } from "react";
+import "./style.js";
+import {
+  AnimatedDiv,
+  ButtonStyled,
+  CounterStyled,
+  InputStyled,
+  RedButtonStyled,
+  PStyled,
+} from "./style.js";
 
-export default class Counter extends Component {
-  render({ id, count, step, decrement, increment } = this.props) {
-    return (
-      <div className="counter">
-        <button className="increment" onClick={() => increment(id, step)}>
+const Counter = ({ id, count, step, decrement, increment }) => {
+  const [value, setValue] = useState(1);
+  return (
+    <>
+      <CounterStyled>
+        <ButtonStyled onClick={() => increment(id, step)}>
           increment
-        </button>
-        <h3 className="count">{count}</h3>
-        <button
-          className={count > 0 ? "decrement" : "decrement decrement-off "}
+        </ButtonStyled>
+
+        <RedButtonStyled className="count">{count}</RedButtonStyled>
+
+        <ButtonStyled
+          type="decrement"
+          count={count}
           onClick={() => decrement(id, step)}
         >
           decrement
-        </button>
-      </div>
-    );
-  }
-}
+        </ButtonStyled>
+
+        <InputStyled value={value} />
+        <RedButtonStyled onClick={() => setValue(value + 1)}>
+          click me
+        </RedButtonStyled>
+      </CounterStyled>
+    </>
+  );
+};
+
+export default Counter;

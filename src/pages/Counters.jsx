@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Counter from "../components/Counter";
 import Container from "../components/Container";
+import { styled } from "styled-components";
+
+const TotalStyled = styled.div`
+  font-size: 1.5625rem;
+  color: red;
+`;
 
 const Counters = () => {
   const countersData = [
@@ -43,17 +49,15 @@ const Counters = () => {
 
   return (
     <div>
-      <Container>
-        {counters.map((counter) => (
-          <Counter
-            key={counter.id}
-            {...counter}
-            increment={onIncrement}
-            decrement={onDecrement}
-          />
-        ))}
-        <div className="total">{total}</div>
-      </Container>
+      {counters.map((counter) => (
+        <Counter
+          key={counter.id}
+          {...counter}
+          increment={onIncrement}
+          decrement={onDecrement}
+        />
+      ))}
+      <TotalStyled>{total}</TotalStyled>
     </div>
   );
 };

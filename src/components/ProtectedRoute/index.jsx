@@ -1,22 +1,25 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
+import { AuthContext } from "../../context/AuthContext";
 
-export default class ProtectedRoute extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.isAuthorized ? (
-          <div>
-            <Header logOut={this.props.logOut} />
-            <Outlet />
-            <Footer />
-          </div>
-        ) : (
-          <Navigate to={"/form"} />
-        )}
-      </div>
-    );
-  }
-}
+export const ProtectedRoute = () => {
+  const context = useContext(AuthContext);
+
+  return (
+    <div>
+      {context.isAuthorized ? (
+        <div>
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      ) : (
+        <Navigate to={"/form"} />
+      )}
+    </div>
+  );
+};
+
+export default ProtectedRoute;

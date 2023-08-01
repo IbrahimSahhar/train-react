@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Post from "../components/Post";
 
 import Container from "../components/Container";
-import axios from "axios";
+import useApi from "../Hooks/useApi";
 
 const Posts = () => {
-  const [data, setData] = useState([]);
+  const { get, getData, post, postData, loading } = useApi();
   useEffect(() => {
-    axios
-      .get("https://dummyjson.com/posts")
-      .then((response) => {
-        // handle success
-        setData(response.data.posts);
-      })
-      .catch((error) => {
-        // handle error
-        // console.log(error);
-      })
-      .finally(() => {
-        // always executed
-      });
+    get("https://jsonplaceholder.typicode.com/posts");
+    console.log(getData);
   }, []);
 
+  console.log(postData);
   return (
     <div>
       <Container>
-        {data?.map((post) => {
-          return <Post key={post.id} {...post} />;
-        })}
+        <button
+          onClick={() =>
+            post("https://jsonplaceholder.typicode.com/posts", {
+              title: "Dave watched as the forest burned up on the hill.",
+            })
+          }
+        >
+          submit
+        </button>
+        {loading
+          ? "loading"
+          : getData?.map((post) => {
+              return <Post key={post.id} {...post} />;
+            })}
       </Container>
     </div>
   );

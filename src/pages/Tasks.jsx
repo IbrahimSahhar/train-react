@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { H1 } from "../components/Typography";
 import Container from "../components/Container";
 
 export default class Tasks extends Component {
@@ -14,7 +13,7 @@ export default class Tasks extends Component {
   };
 
   mainStyle = {
-    padding: "10px 20px",
+    padding: "0.625rem 1.25rem",
     border: "none",
   };
 
@@ -33,7 +32,7 @@ export default class Tasks extends Component {
       <div>
         <Container>
           <div className="task-1">
-            <H1> Task 1</H1>
+            <h1> Task 1</h1>
             <button
               style={
                 this.state.theme === "dark" ? this.darkStyle : this.lightStyle

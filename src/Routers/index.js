@@ -12,8 +12,12 @@ import Form from "../pages/Form";
 import PostOne from "../components/PostOne";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { Gifs } from "../pages/Gifs";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-export const Routers = (isAuthorized, setIsAuthorized, logOut) => {
+export const Routers = () => {
+  const context = useContext(AuthContext);
+
   const router = useRoutes([
     {
       index: true,
@@ -23,21 +27,12 @@ export const Routers = (isAuthorized, setIsAuthorized, logOut) => {
       path: "/form",
       // element: <Form />,
       element: (
-        <>
-          {isAuthorized ? (
-            <Navigate to="/dashboard" />
-          ) : (
-            <Form
-              setIsAuthorized={setIsAuthorized}
-              isAuthorized={isAuthorized}
-            />
-          )}
-        </>
+        <>{context.isAuthorized ? <Navigate to="/dashboard" /> : <Form />}</>
       ),
     },
     {
       path: "/dashboard",
-      element: <ProtectedRoute isAuthorized={isAuthorized} logOut={logOut} />,
+      element: <ProtectedRoute />,
       children: [
         {
           index: true,
