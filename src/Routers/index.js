@@ -14,6 +14,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import { Gifs } from "../pages/Gifs";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import PostsREducer from "../pages/PostsReducer";
 
 export const Routers = () => {
   const context = useContext(AuthContext);
@@ -45,6 +46,10 @@ export const Routers = () => {
         {
           path: "todoList",
           element: <TodoList />,
+        },
+        {
+          path: "PostsREducer",
+          element: <PostsREducer />,
         },
         {
           path: "counters",

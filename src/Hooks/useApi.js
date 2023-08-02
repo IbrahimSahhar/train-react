@@ -12,12 +12,14 @@ const useApi = () => {
       .get(url)
       .then((response) => {
         setGetData(response.data);
+        console(getData);
         console(response.data);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
+        console.log("finally");
         setLoading(false);
       });
   };
