@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { ContainerStyled } from "../Global/Components";
+import { LazyImage } from "../components/LazyImage";
 
-export const Gifs = () => {
+const Gifs = () => {
   const [data, setData] = useState([]);
   const [value, setValue] = useState("");
 
@@ -44,7 +45,7 @@ export const Gifs = () => {
         {data.map((gif) => {
           return (
             <div key={gif.id}>
-              <img src={gif.images.original.url} alt="gif" width={"71.25rem"} />
+              <LazyImage gif={gif} />
             </div>
           );
         })}
@@ -52,3 +53,5 @@ export const Gifs = () => {
     </ContainerStyled>
   );
 };
+
+export default Gifs;

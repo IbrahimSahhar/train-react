@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Routers } from "./Routers";
 import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
@@ -13,6 +13,8 @@ import {
   fontsize,
 } from "./Global/Theme";
 import { AuthContext } from "./context/AuthContext";
+
+import { Spinner } from "./Global/style";
 
 function App() {
   const Themes = {
@@ -38,7 +40,9 @@ function App() {
     <ThemeProvider theme={Themes}>
       <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
         <div className="App">
-          <Routers />
+          <Suspense fallback={<Spinner>Loading...</Spinner>}>
+            <Routers />
+          </Suspense>
         </div>
       </AuthContext.Provider>
     </ThemeProvider>

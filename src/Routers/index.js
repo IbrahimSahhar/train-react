@@ -1,20 +1,21 @@
 import React from "react";
 import { Navigate, useRoutes } from "react-router-dom";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import TodoList from "../pages/TodoList";
-import Counters from "../pages/Counters";
-import Products from "../pages/Products";
-import Tasks from "../pages/Tasks";
-import Posts from "../pages/Posts";
-import Form from "../pages/Form";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 import PostOne from "../components/PostOne";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { Gifs } from "../pages/Gifs";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import PostsREducer from "../pages/PostsReducer";
+
+const Home = React.lazy(() => import("../pages/Home"));
+const About = React.lazy(() => import("../pages/About"));
+const TodoList = React.lazy(() => import("../pages/TodoList"));
+const Counters = React.lazy(() => import("../pages/Counters"));
+const Products = React.lazy(() => import("../pages/Products"));
+const Tasks = React.lazy(() => import("../pages/Tasks"));
+const Posts = React.lazy(() => import("../pages/Posts"));
+const Form = React.lazy(() => import("../pages/Form"));
+const Gifs = React.lazy(() => import("../pages/Gifs"));
+const PostsREducer = React.lazy(() => import("../pages/PostsReducer"));
 
 export const Routers = () => {
   const context = useContext(AuthContext);
