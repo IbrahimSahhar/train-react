@@ -3,15 +3,15 @@ import Post from "../components/Post";
 
 import Container from "../components/Container";
 import useApi from "../Hooks/useApi";
+import HigherOrderLayout from "../components/HigherOrderLayout";
 
-const Posts = () => {
-  const { get, getData, post, postData, loading } = useApi();
+const Posts = (props) => {
+  const { get, getData, post, loading } = useApi();
   useEffect(() => {
     get("https://jsonplaceholder.typicode.com/posts");
-    console.log(getData);
-  }, []);
+  }, [get]);
+  console.log("data from posts", props.data);
 
-  console.log(postData);
   return (
     <div>
       <Container>
@@ -34,4 +34,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default HigherOrderLayout(Posts);

@@ -11,7 +11,7 @@ const PostOne = () => {
   useEffect(() => {
     get(`https://jsonplaceholder.typicode.com/posts/${id}`);
     console.log(getData);
-  }, []);
+  }, [get, getData, id]);
 
   return <PostsDAta id={id} getData={getData} loading={loading} />;
 };

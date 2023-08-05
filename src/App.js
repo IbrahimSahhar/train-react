@@ -1,6 +1,5 @@
 import { Suspense, useState } from "react";
 import { Routers } from "./Routers";
-import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import {
   BlueTheme,
@@ -27,15 +26,11 @@ function App() {
     Green: GreenTheme,
     fontSize: fontsize,
   };
-
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setIsAuthorized(true);
-    }
-  }, [isAuthorized]);
-
+  let authorized = false;
+  if (localStorage.getItem("token")) {
+    authorized = true;
+  }
+  const [isAuthorized, setIsAuthorized] = useState(authorized);
   return (
     <ThemeProvider theme={Themes}>
       <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>

@@ -19,8 +19,7 @@ const PostsREducer = React.lazy(() => import("../pages/PostsReducer"));
 
 export const Routers = () => {
   const context = useContext(AuthContext);
-
-  const router = useRoutes([
+  const routes = [
     {
       index: true,
       element: <Navigate to={"/form"} />,
@@ -41,11 +40,11 @@ export const Routers = () => {
           element: <Home />,
         },
         {
-          path: "about",
+          path: "/dashboard/about",
           element: <About />,
         },
         {
-          path: "todoList",
+          path: "/dashboard/todoList",
           element: <TodoList />,
         },
         {
@@ -84,7 +83,9 @@ export const Routers = () => {
       path: "*",
       element: <h1>Page Is Not Found 404</h1>,
     },
-  ]);
+  ];
+
+  const router = useRoutes(routes);
 
   return router;
 };

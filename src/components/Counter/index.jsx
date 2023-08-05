@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import "./style.js";
 import {
-  AnimatedDiv,
   ButtonStyled,
   CounterStyled,
   InputStyled,
   RedButtonStyled,
-  PStyled,
 } from "./style.js";
 
 const Counter = ({ id, count, step, decrement, increment }) => {

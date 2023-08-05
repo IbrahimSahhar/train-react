@@ -28,9 +28,12 @@ const Header = () => {
         style={{
           marginLeft: "1.25rem",
           fontSize: "1.25rem",
+          lineHeight: "4.5rem",
+          color: "red",
+          fontWeight: "bold",
         }}
       >
-        <span style={{ color: "red", fontWeight: "bold" }}>{fullName}</span>
+        {fullName}
       </p>
       <ul>
         <li>

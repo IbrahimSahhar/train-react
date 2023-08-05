@@ -9,7 +9,7 @@ const TodoList = () => {
   const { get, getData, loading } = useApi();
   useEffect(() => {
     get("https://jsonplaceholder.typicode.com/todos");
-  }, []);
+  }, [get]);
 
   const Page = styled.div`
     background-color: ${(props) => props.theme[theme1].pallet.page};

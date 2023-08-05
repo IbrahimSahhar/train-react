@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Counter from "../components/Counter";
-import Container from "../components/Container";
 import { styled } from "styled-components";
 
 const TotalStyled = styled.div`

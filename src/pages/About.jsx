@@ -13,6 +13,7 @@ const About = () => {
   const images = [Work1, Work2, Work3, Work4, Work5, Work6, Work7, Work8];
 
   const [step, setStep] = useState(0);
+  const [state] = useState(null); // error to check error boundary
 
   const handelNext = () => {
     if (step < 7) {
@@ -27,6 +28,9 @@ const About = () => {
 
   return (
     <Container>
+      {state.map((item) => {
+        return <>{item.id}</>;
+      })}
       <div>{step + 1} from 8 </div>
       <div className="image">
         <img src={images[step]} alt="work" />
