@@ -5,6 +5,9 @@ import { AuthContext } from "../context/AuthContext";
 
 import PostOne from "../components/PostOne";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { MUI } from "../pages/MUI";
+import ANT from "../pages/ANT";
+import { REACT_BOOTSTRAP } from "../pages/REACT_BOOTSTRAP";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const About = React.lazy(() => import("../pages/About"));
@@ -59,6 +62,19 @@ export const Routers = () => {
           path: "products",
           element: <Products />,
         },
+        {
+          path: "MUI",
+          element: <MUI />,
+        },
+        {
+          path: "ANT",
+          element: <ANT />,
+        },
+        {
+          path: "REACT_BOOTSTRAP",
+          element: <REACT_BOOTSTRAP />,
+        },
+
         {
           path: "tasks",
           element: <Tasks />,

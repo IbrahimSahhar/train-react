@@ -68,6 +68,15 @@ const Header = () => {
           <NavLink to="/dashboard/PostsREducer">PostsREducer</NavLink>
         </li>
         <li>
+          <NavLink to="/dashboard/MUI">MUI</NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard/ANT">ANT</NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard/REACT_BOOTSTRAP">REACT_BOOTSTRAP</NavLink>
+        </li>
+        <li>
           <button
             style={{ padding: "0.3125rem 0.9375rem", cursor: "pointer" }}
             onClick={() => logOut()}
