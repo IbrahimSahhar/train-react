@@ -1,17 +1,59 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { useDeferredValue, useMemo } from "react";
 import { ContainerStyled } from "../Global/Components";
-import { RefComponent } from "../components/RefComponent";
-
-const H1Styled = styled.div`
-  font-size: ${(props) => props.theme.fontSize.h1}px;
-`;
+import { useState } from "react";
 
 const Home = () => {
+  const [count, setCount] = useState(0);
+  const myTotal = useDeferredValue(count);
+  const [counter, setCounter] = useState(0);
+
+  const calculate = useMemo(() => {
+    let total = 0;
+    for (let i = 0; i < 10000; i++) {
+      total += i / myTotal;
+      for (let j = 1000; j > 1; j--) {
+        total -= i / myTotal;
+      }
+    }
+
+    return total;
+  }, [myTotal]);
+
+  // const calculate = () => {
+  //   let total = 0;
+  //   for (let i = 0; i < 10000; i++) {
+  //     total += i / myTotal;
+  //     for (let j = 1000; j > 1; j--) {
+  //       total -= i / myTotal;
+  //     }
+  //   }
+
+  //   return total;
+  // };
+
   return (
     <ContainerStyled>
-      <H1Styled>This Is the home page </H1Styled>
-      <RefComponent />
+      <form>
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => {
+            setCount(e.target.value);
+          }}
+        />
+      </form>
+      <p>{calculate}</p>
+
+      <div>
+        {counter}
+        <button
+          onClick={() => {
+            setCounter(counter + 1);
+          }}
+        >
+          increment
+        </button>
+      </div>
     </ContainerStyled>
   );
 };
