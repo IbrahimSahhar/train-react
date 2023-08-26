@@ -54,6 +54,7 @@ const Home = () => {
           increment
         </button>
       </div>
+   
     </ContainerStyled>
   );
 };

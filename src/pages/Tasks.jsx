@@ -1,49 +1,52 @@
-import React, { Component } from "react";
-import Container from "../components/Container";
+// import axios from "axios";
+import React, { createRef, useState } from "react";
+import ImageInput from "../components/ImageInput";
 
-export default class Tasks extends Component {
-  state = {
-    theme: "dark",
+const Tasks = () => {
+  const [file, setFile] = useState(null);
+  const fileInput = createRef();
+  const title = createRef();
+  const body = createRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("data");
+
+    const date = {
+      title: title.current.value,
+      body: body.current.value,
+      file,
+    };
+    console.log(date);
+
+    // if (file) {
+    //   try {
+    //     axios.post("url", date, {});
+    //   } catch (e) {
+    //     console.log(e.message);
+    //   }
+    // }
   };
 
-  changeTheme = () => {
-    this.setState((prev) => ({
-      theme: prev.theme === "dark" ? "light" : "dark",
-    }));
-  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <ImageInput file={file} setFile={setFile} />
 
-  mainStyle = {
-    padding: "0.625rem 1.25rem",
-    border: "none",
-  };
-
-  darkStyle = {
-    ...this.mainStyle,
-    backgroundColor: "black",
-    color: "white",
-  };
-  lightStyle = {
-    ...this.mainStyle,
-    backgroundColor: "white",
-    color: "black",
-  };
-  render() {
-    return (
-      <div>
-        <Container>
-          <div className="task-1">
-            <h1> Task 1</h1>
-            <button
-              style={
-                this.state.theme === "dark" ? this.darkStyle : this.lightStyle
-              }
-              onClick={this.changeTheme}
-            >
-              {this.state.theme === "dark" ? "light" : "dark"}
-            </button>
-          </div>
-        </Container>
-      </div>
-    );
-  }
-}
+      <label>
+        Upload file:
+        <input
+          type="file"
+          ref={fileInput}
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+          }}
+        />
+      </label>
+      <input ref={title} />
+      <input ref={body} />
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+export default Tasks;

@@ -9,7 +9,7 @@ const Posts = (props) => {
   const { get, getData, post, loading } = useApi();
   useEffect(() => {
     get("https://jsonplaceholder.typicode.com/posts");
-  }, [get]);
+  }, []);
   console.log("data from posts", props.data);
 
   return (

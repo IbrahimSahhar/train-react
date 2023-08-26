@@ -1,62 +1,44 @@
-import React, { useEffect, useState } from "react";
-import Counter from "../components/Counter";
-import { styled } from "styled-components";
-
-const TotalStyled = styled.div`
-  font-size: 1.5625rem;
-  color: red;
-`;
+import React from "react";
+import { useForm } from "react-hook-form";
 
 const Counters = () => {
-  const countersData = [
-    { id: 1, count: 0, step: 1 },
-    { id: 2, count: 0, step: 2 },
-    { id: 3, count: 0, step: 4 },
-    { id: 4, count: 0, step: 8 },
-  ];
-  const [counters, setCounters] = useState(countersData);
-  const [total, setTotal] = useState(0);
+  const { register, handleSubmit, watch, formState } = useForm();
 
-  const onIncrement = (id, step = 1) => {
-    setCounters((prev) =>
-      prev.map((counter) =>
-        counter.id === id
-          ? { ...counter, count: counter.count + step }
-          : counter
-      )
-    );
-  };
-
-  const onDecrement = (id, step = 1) => {
-    setCounters((prev) =>
-      prev.map((counter) =>
-        counter.id === id && counter.count >= step
-          ? { ...counter, count: counter.count - step }
-          : counter
-      )
-    );
-  };
-
-  useEffect(() => {
-    setTotal(() =>
-      counters.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.count,
-        0
-      )
-    );
-  }, [counters]);
-
+  const onSubmit = (data) => console.log(data);
+  console.log(watch("example"));
   return (
     <div>
-      {counters.map((counter) => (
-        <Counter
-          key={counter.id}
-          {...counter}
-          increment={onIncrement}
-          decrement={onDecrement}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input {...register("example")} />
+
+        <input {...register("exampleRequired", { required: true })} />
+        {formState.errors.exampleRequired && (
+          <span>This field is required</span>
+        )}
+
+        <label>Gender Selection</label>
+        <select {...register("gender")}>
+          <option value="female">female</option>
+          <option value="male">male</option>
+          <option value="other">other</option>
+        </select>
+        <br />
+        <br />
+        <input {...register("firstName", { required: true, maxLength: 20 })} />
+        <br />
+        <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
+        <br />
+        <input
+          type="number"
+          {...register("age", { min: 18, max: 99, required: true })}
         />
-      ))}
-      <TotalStyled>{total}</TotalStyled>
+        <br />
+        {formState.errors.age && (
+          <span>the number must be between 18 and 99 </span>
+        )}
+        <br />
+        <input type="submit" />
+      </form>
     </div>
   );
 };
