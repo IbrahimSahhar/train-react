@@ -1,5 +1,6 @@
 import { Suspense, useState } from "react";
 import { Routers } from "./Routers";
+
 import { ThemeProvider } from "styled-components";
 import {
   BlueTheme,
@@ -14,8 +15,11 @@ import {
 import { AuthContext } from "./context/AuthContext";
 
 import { Spinner } from "./Global/style";
+import { GlobalStyle } from "./Global/GlobalStyle";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { i18n } = useTranslation();
   const Themes = {
     dark: DarkTheme,
     light: LightTheme,
@@ -35,9 +39,11 @@ function App() {
     <ThemeProvider theme={Themes}>
       <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
         <div className="App">
-          <Suspense fallback={<Spinner>Loading...</Spinner>}>
-            <Routers />
-          </Suspense>
+          <GlobalStyle dir={i18n.language === "en" ? "ltr" : "rtl"}>
+            <Suspense fallback={<Spinner>Loading...</Spinner>}>
+              <Routers />
+            </Suspense>
+          </GlobalStyle>
         </div>
       </AuthContext.Provider>
     </ThemeProvider>

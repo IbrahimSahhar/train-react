@@ -5,11 +5,19 @@ import imageProfile from "../../images/profile.jpg";
 
 import "./style.css";
 import { AuthContext } from "../../context/AuthContext";
+import i18next, { changeLanguage } from "i18next";
 
 const Header = () => {
   const context = useContext(AuthContext);
 
   const [fullName, setFullName] = useState("");
+  const [lang, setLang] = useState("ar");
+  useEffect(() => {
+    const lang = localStorage.getItem("lang");
+    setLang(lang);
+    console.log(lang);
+  }, [lang]);
+
   useEffect(() => {
     const fullName = localStorage.getItem("fullName");
     setFullName(fullName);
@@ -19,6 +27,11 @@ const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("fillName");
     context.setIsAuthorized(false);
+  };
+
+  const changLang = () => {
+    changeLanguage(i18next.language === "en" ? "ar" : "en");
+    localStorage.setItem("lang", i18next.language);
   };
 
   return (
@@ -77,6 +90,12 @@ const Header = () => {
           <NavLink to="/dashboard/REACT_BOOTSTRAP">REACT_BOOTSTRAP</NavLink>
         </li>
         <li>
+          <button
+            style={{ padding: "0.3125rem 0.9375rem", cursor: "pointer" }}
+            onClick={() => changLang()}
+          >
+            {lang === "en" ? "العربية" : "English"}
+          </button>
           <button
             style={{ padding: "0.3125rem 0.9375rem", cursor: "pointer" }}
             onClick={() => logOut()}

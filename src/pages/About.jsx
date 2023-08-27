@@ -1,19 +1,14 @@
-import React, { useRef } from "react";
+import React from "react";
 import Container from "../components/Container";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
-  // uncontrolled component
-  const name = useRef();
+  const { t } = useTranslation();
+
   return (
     <Container>
-      <form>
-        <input
-          ref={name}
-          onChange={() => {
-            console.log(name.current.value);
-          }}
-        />
-      </form>
+      <h2>{t("Welcome to React")}</h2>
+      <h4>{t("name question")}</h4>
     </Container>
   );
 };
